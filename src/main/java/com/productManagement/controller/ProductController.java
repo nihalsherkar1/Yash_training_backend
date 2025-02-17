@@ -1,6 +1,8 @@
 package com.productManagement.controller;
 
 
+import com.productManagement.ProductResponse;
+import com.productManagement.entity.AppConstants;
 import com.productManagement.entity.Category;
 import com.productManagement.entity.Product;
 import com.productManagement.services.services.ProductService;
@@ -28,8 +30,9 @@ public class ProductController {
         return  new ResponseEntity<>("Product added successfully !!", HttpStatus.CREATED);
     }
     @GetMapping()
-    public ResponseEntity<List<Product>> getAllProduct(   ){
-        List<Product> data= productService.getAllProduct();
+    public ResponseEntity<ProductResponse> getAllProduct(@RequestParam(name = "pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false )  Integer pageNumber,
+                                                         @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)             Integer pageSize  ){
+        ProductResponse data= productService.getAllProduct(pageNumber, pageSize);
 
         return  new ResponseEntity<>( data, HttpStatus.OK);
     }
